@@ -1,20 +1,15 @@
 group = "com.github.tobycatapps"
 version = "1.0.0"
 
-plugins {
-	java
-	application
-	`kotlin-dsl`
-}
+apply plugin:"java"
+apply plugin:"application"
 
-java {
+tasks.withType(JavaCompile) {
 	sourceCompatibility = JavaVersion.VERSION_1_8
 	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-application {
-	mainClassName = "fileExplorerService.Main"
-}
+mainClassName = "fileExplorerService.Main"
 
 repositories {
 	jcenter()
