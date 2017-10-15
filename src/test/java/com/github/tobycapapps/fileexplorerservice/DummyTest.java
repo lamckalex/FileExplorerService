@@ -1,3 +1,5 @@
+package com.github.tobycapapps.fileexplorerservice;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
