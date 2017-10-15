@@ -2,6 +2,9 @@ package fileExplorerService;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Main {
 
@@ -20,9 +23,7 @@ public class Main {
 
 			File folder = getFolder(path);
 
-			File[] listOfFiles = folder.listFiles();
-
-			FileObj[] fileArray = getFileObjs(listOfFiles);
+			FileObj[] fileArray = getFileObjs(new File[] {folder});
 
 			//			System.out.println("unsorted: ");
 			//			for(int i = 0; i < fileArray.length; i++){
@@ -65,7 +66,13 @@ public class Main {
 				String filePath = files[i].getPath();
 				File folder = getFolder(filePath);
 
-				File[] listOfFiles = folder.listFiles();
+				Optional<File[]> subFiles = Optional.ofNullable(folder.listFiles());
+				if (!subFiles.isPresent()) {
+					System.err.println("File.listFiles() returned null on folder: "+folder.getAbsolutePath());
+				}
+				File[] listOfFiles = Arrays.stream(subFiles.orElse(new File[0]))
+						.filter(Objects::nonNull)
+						.toArray(File[]::new);
 
 				FileObj[] tempFileAray = getFileObjs(listOfFiles);
 
