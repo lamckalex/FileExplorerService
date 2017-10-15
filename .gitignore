@@ -1,6 +1,7 @@
 
 # Gradle artifacts
 build/
+out/
 classes/
 .gradle/
 
