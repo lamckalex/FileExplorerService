@@ -1,10 +1,19 @@
 group = "com.github.tobycatapps"
 version = "1.0.0"
 
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${Version.SPRING}")
+	}
+}
+
 plugins {
-	java
+	kotlin("jvm")
 	application
-	`kotlin-dsl`
+	id("org.springframework.boot").version(Version.SPRING)
 }
 
 java {
@@ -22,6 +31,15 @@ repositories {
 }
 
 dependencies {
+	compile(kotlin("stdlib"))
+	compile(kotlin("reflect"))
+	compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude(module = "spring-boot-starter-tomcat")
+	}
+	compile("org.springframework.boot:spring-boot-starter-jetty")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+
+	testCompile(kotlin("test"))
 	testCompile("junit:junit:4.12")
 	testCompile("org.mockito:mockito-all:2.0.2-beta")
 }

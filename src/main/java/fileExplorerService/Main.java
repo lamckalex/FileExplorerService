@@ -17,8 +17,6 @@ public class Main {
 			path = args[0];
 		}
 
-		path = "D:\\Windows 8";
-
 		if (path != null) {
 
 			File folder = getFolder(path);
