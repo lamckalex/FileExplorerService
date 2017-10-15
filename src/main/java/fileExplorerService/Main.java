@@ -47,14 +47,14 @@ public class Main {
 
 	}
 
-	private static File getFolder(String folderPath) {
+	public static File getFolder(String folderPath) {
 
 		File folder = new File(folderPath);
 
 		return folder;
 	}
 
-	private static FileObj[] getFileObjs(File[] files) {
+	public static FileObj[] getFileObjs(File[] files) {
 		ArrayList<FileObj> fileArrayList = new ArrayList<FileObj>();
 
 		for (int i = 0; i < files.length; i++) {
