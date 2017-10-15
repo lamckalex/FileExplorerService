@@ -1,0 +1,9 @@
+
+# Gradle artifacts
+build/
+classes/
+.gradle/
+
+# IntelliJ Idea configurations
+.idea/
+*.iml
