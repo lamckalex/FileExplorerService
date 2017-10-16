@@ -1,5 +1,6 @@
 package fileExplorerService;
 
+import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,37 +15,32 @@ public class FileExplorerServiceController {
             {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody String fileServicePost(@RequestBody PostObject pathObj) {
-
+        final Gson gson = new Gson();
         String path = pathObj.getPath();
 
-        StringBuilder stb = new StringBuilder();
+//        StringBuilder stb = new StringBuilder();
 
-        System.out.println("C:\\Users\\Alex\\Pictures");
 
-        System.out.println("Path" + path);
+        File folder = Main.getFolder(path);
+        FileObj[] fileArray = Main.getFileObjs(new File[] {folder});
+        QuickSort qs = new QuickSort();
 
-        if (path != null) {
+//            stb.append("sorted by filesize: \n");
 
-            File folder = Main.getFolder(path);
-            FileObj[] fileArray = Main.getFileObjs(new File[] {folder});
-            QuickSort qs = new QuickSort();
-
-            stb.append("sorted by filesize: \n");
-
-            FileObj[] sortedFileArray = fileArray;
-            if(fileArray.length > 1){
-                sortedFileArray = qs.sortFileObj(fileArray);
-            }
-
-            for (int i = 0; i < sortedFileArray.length; i++) {
-                stb.append("File Name: " + sortedFileArray[i].fileName + " File Size: " + sortedFileArray[i].getFileSizeInMB() + "mbs" + " File Extension: " + sortedFileArray[i].fileExtension + "\n");
-            }
-
-        } else {
-            stb.append("Usage: Put in file path for recursive search for the largest file in the path\n");
+        FileObj[] sortedFileArray = fileArray;
+        if(fileArray.length > 1){
+            sortedFileArray = qs.sortFileObj(fileArray);
         }
 
-        return stb.toString();
+        for (int i = 0; i < sortedFileArray.length; i++) {
+//                stb.append("File Name: " + sortedFileArray[i].fileName + " File Size: " + sortedFileArray[i].getFileSizeInMB() + "mbs" + " File Extension: " + sortedFileArray[i].fileExtension + "\n");
+        }
+        return gson.toJson(sortedFileArray);
+
+        //return stb.toString();
+
+
+
     }
 
     @RequestMapping(method=RequestMethod.GET)
@@ -70,5 +66,6 @@ public class FileExplorerServiceController {
 
         return stb.toString();
     }
+
 
 }
