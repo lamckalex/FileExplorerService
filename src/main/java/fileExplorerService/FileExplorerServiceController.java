@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/file-explorer-service")
 public class FileExplorerServiceController {

@@ -7,7 +7,7 @@ public class FileObj {
 	String fileName;
 
 	String fileExtension;
-	
+
 	float fileSize;
 	
 	
